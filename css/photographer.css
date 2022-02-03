@@ -9,11 +9,11 @@
     width: 1240px;
     height: 313px;
     border-radius: 5px;
-    position: absolute;
+    /* position: absolute;
     left: 0%;
     right: 0%;
     top: 20%;
-    bottom: 0%;
+    bottom: 0%; */
 
 }
 
@@ -107,12 +107,9 @@ form input {
     line-height: 83px;
     letter-spacing: 0em;
     text-align: left;
-    Width: 282px;
-    Height: 83px;
+    width: 282px;
+    height: 83px;
     color:#D3573C;
-    position: absolute;
-    top: 28%;
-    left: 5%;
 }
 
 .photographer_localisation {
@@ -134,14 +131,14 @@ form input {
 }
    
 
-.photographer_localisation_block {
+/* .photographer_localisation_block {
     width: 374px;
     height: 113px;
     left: 134px;
     top: 271px;
     border: 2px solid #95FFF9;
     box-sizing: border-box;
-}
+} */
 
 .photographer_picture {
    position: absolute;
@@ -155,11 +152,11 @@ form input {
    border-radius: 50%;
 }
 
-.photographer_localisation_block {
+/* .photographer_localisation_block {
     position: absolute;
     top: 50%;
     left: 5%;
-}
+} */
 
 *, ::before,::after {
     box-sizing: border-box;
