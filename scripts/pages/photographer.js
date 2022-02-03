@@ -1,21 +1,76 @@
 //Mettre le code JavaScript lié à la page photographer.html
 
-async function getPhotographerById(){
-    const photographers = await fetch ("data/photographers.json") 
+async function getPhotographerById(id){
+    const photographer = await fetch ("data/photographers.json") 
         .then(result => result.json()) 
-        .then(photographers => photographers.id); {
-            for (let id of photographers){
-                console.log(photographers.id)
-                return ({...id});
-            }
-            //faire ma boucle ici
-        };
+        .then(data => {
+            let result;
+            data.photographers.forEach (photographer => {
+                if (id == photographer.id){
+                    result = photographer;
+                    console.log(photographer);
+                }
+            });
+            return result;
+        }) 
+    return photographer;
 }
 
-getPhotographerById();
+async function getMediasByPhotographer(photographer) {
+    const mediaList = await fetch ("data/photographers.json") 
+        .then(result => result.json()) 
+        .then(data => {
+            let result = [];
+            data.media.forEach (media => {
+                if (media.photographerId === photographer.id){
+                    result.push(media);
+                    
+                }
+            });
+            return result;
+        }) 
+    return media;
+}
 
 
-let params = new URLSearchParams(document.location.search);
-console.log(params);
+(async()=>{
+    let params = new URLSearchParams(document.location.search);
+
 let id = parseInt(params.get("id"));
-console.log(id);
+
+
+
+let photographer = await getPhotographerById(id);
+document.querySelector('.photographer_name').textContent = photographer.name;
+document.querySelector('.photographer_localisation').textContent = photographer.city + ', ' + photographer.country;
+document.querySelector('.photographer_tagLine').textContent = photographer.tagline;
+document.querySelector('.photographer_picture').textContent = medias[id].picture
+
+let medias = await getMediasByPhotographer(photographer);
+})();
+
+
+
+//implémenter une fontion getMediasByPhotographer 
+//récupérer la liste des médias et rechercher et filtrer parmis cette liste les médias qui appartiennent au photographe(data.media)
+
+
+const dropdown = document.querySelector(".dropdown");
+const btnDrop = document.querySelector(".bloc-top");
+
+
+let toggleIndex = 0;
+
+btnDrop.addEventListener('click', () => {
+
+    
+
+    if(toggleIndex === 0){
+        dropdown.style.height = `${dropdown.scrollHeight}px`;
+        toggleIndex++;
+    } else {
+        dropdown.style.height = `${btnDrop.scrollHeight}px`;
+        toggleIndex--;
+    }
+
+})

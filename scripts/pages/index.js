@@ -2,7 +2,6 @@
     .then(result => result.json()) 
     .then(data => console.log(data));
 
-
     async function getPhotographers() {
         const photographers = await fetch("data/photographers.json")
         .then(result => result.json()) 
