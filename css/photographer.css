@@ -3,7 +3,8 @@
 }
 
 #photographer_page {
-    width: 1480px;
+    margin: 0 auto;
+
 }
 
 .photograph-header {
@@ -122,6 +123,14 @@ form input {
     white-space: nowrap;
     margin-left: 3rem;
 }
+
+.photographer_picture {
+    width:200px;
+    height: 200px;
+    background: #C4C4C4;
+    border-radius: 50%;
+    margin-right: 3rem;
+ }
    
 
 .photographer_localisation_block {
@@ -130,19 +139,6 @@ form input {
     flex-direction: column;
 
 }
-
-.photographer_picture {
-   width:200px;
-   height: 200px;
-   background: #C4C4C4;
-   border-radius: 50%;
-}
-
-/* .photographer_localisation_block {
-    position: absolute;
-    top: 50%;
-    left: 5%;
-} */
 
 *, ::before,::after {
     box-sizing: border-box;
