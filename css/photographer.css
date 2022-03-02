@@ -92,6 +92,12 @@ form input {
 
 /*début de mon implémentation*/
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+}
 
 .photographer_name {
     font-family: DM Sans;
@@ -146,25 +152,91 @@ form input {
 
 }
 
-*, ::before,::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+.medias {
+  display : flex;
+  padding: 30px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-wrap: wrap;
+
 }
 
-body {
-    font-family: sans-serif;
+.mediaArticle {
+   display : flex;
+   padding: 30px;
+   flex-direction: column;
+   justify-content: start;
+   align-items: center;
+   flex-wrap: wrap;
+   align-items: stretch;
+   cursor : pointer;
+    
+}
+.mediaArticle img,video{
+    height: 300px;
+    width: 350px;   
+    border-radius: 5px;
+    object-fit: cover;
+    
+    
 }
 
+.mediaArticle h2 {
+    color: #901C1C;
+}
+
+.mediaArticle i {
+    display: flex;
+    color: #901C1C;
+    font-size:  2rem;
+    width: 10px;
+    height: 20px;
+}
+
+.mediaNameAndLikes {
+    width: 100%;
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    color: #901C1C;
+    
+
+}
+
+.legendDiv {
+    display: flex;
+    padding-top: 2px;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center;
+}
+
+i::before,::after{
+    display: flex;
+    color: #901C1C;
+    font-size: 1rem;
+    width: 2em;
+    height: 1.5em;
+    margin-left: .2em;
+  }
+
+.drop-down-block {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+  
 .drop-down-text {
-    position: absolute;
     top: 75%;
     left: 7%;
 
 }
 
 .dropdown {
-    max-width: 100px;
+    max-width: 150px;
     height: 63px;
     border-radius: 5px;
     margin: 100px auto;
@@ -172,10 +244,9 @@ body {
     background: #901C1C;
     transition: height 0.4s ease-in-out;
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-    position: absolute;
     top: 60%;
     left: 15%;
-}
+}      
 
 .bloc-top {
     padding: 20px;
@@ -212,4 +283,8 @@ body {
 }
 .bloc-links li:last-child{
     padding-bottom: 20px;
+}
+
+#drop-icon {
+    color: #FAFAFA;
 }

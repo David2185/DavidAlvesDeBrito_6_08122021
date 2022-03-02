@@ -30,26 +30,11 @@ async function getMediasByPhotographer(photographer) {
       });
       return result;
     });
-  return media;
+  return mediaList;
 }
 
 //boucle pour afficher les médias en fonction du photographe "cliqué"
 
-
-async function getMedias(medias) {
-  const pictures = await fetch("data/photographers.json")
-    .then ((result) => result.json())
-    .then((data) => {
-      let result = [];
-      data.media.forEach ((medias) => {
-        if (medias.photographerId === photographer.id) {
-          medias.filter(id);
-        }
-      });
-      return result;
-    });
-    return medias;
-}
 
 function displayMedias(medias) {
   const mediasSection = document.querySelector(".medias");
@@ -59,6 +44,20 @@ function displayMedias(medias) {
       mediasSection.appendChild(mediaDOM);
   });
 };
+
+// fonction qui incrémente le nombre de likes sur la photo
+// function heartCounter() {
+  
+//   let likes = document.querySelector('.fa-heart', '.fas').addEventListener('click', incrementCounter);
+//   let total_Likes = document.querySelector('.counter-label');
+//   function incrementCounter() {
+//       let totalLikes = 0;
+//       for (let i = 0; i < likes.length; i++) {
+//           totalLikes += parseint(likes[i].innerText);
+//       }
+//       total_Likes.innerText = totalLikes;
+//   }
+// };
 
 (async () => {
   let params = new URLSearchParams(document.location.search);
@@ -75,23 +74,20 @@ function displayMedias(medias) {
   document.querySelector(".photographer_picture").setAttribute("src", "assets/photographers/" + photographer.portrait )
 
   let medias = await getMediasByPhotographer(photographer);
-
+  displayMedias(medias  );
   
 })();
 
-//récupérer la liste des médias et rechercher et filtrer parmis cette liste les médias qui appartiennent au photographe(data.media)
 
-const dropdown = document.querySelector(".dropdown");
-const btnDrop = document.querySelector(".bloc-top");
-
-let toggleIndex = 0;
-
-btnDrop.addEventListener("click", () => {
+var dropdown = document.querySelector(".dropdown");
+var btnDrop = document.querySelector(".bloc-top");
+var toggleIndex = 0;
+btnDrop.addEventListener("click", function () {
   if (toggleIndex === 0) {
-    dropdown.style.height = `${dropdown.scrollHeight}px`;
+    dropdown.style.height = "".concat(dropdown.scrollHeight, "px");
     toggleIndex++;
   } else {
-    dropdown.style.height = `${btnDrop.scrollHeight}px`;
+    dropdown.style.height = "".concat(btnDrop.scrollHeight, "px");
     toggleIndex--;
   }
 });
