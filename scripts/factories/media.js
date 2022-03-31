@@ -10,7 +10,7 @@ function mediaFactory(media) {
         const video = document.createElement('video');
         video.setAttribute("src", `assets/medias/${media.video}`);
         mediaDiv.appendChild(video);
-    } else {
+       } else {
         const pictures = `assets/medias/${media.image}`;
         const img = document.createElement('img');
         img.setAttribute("src", pictures);
@@ -23,10 +23,10 @@ function mediaFactory(media) {
     const h2 = document.createElement('h2');
     h2.textContent = media.title;
     const likes = document.createElement('span');
-    likes.classList.add('counter-label');
-    likes.textContent =0;
+    likes.classList.add('media-likes');
+    likes.textContent = media.likes;
     const heart = document.createElement('i');
-    heart.classList.add('fa-heart', 'fas');
+    heart.classList.add('fa-heart', 'fas', 'media-like');
     article.appendChild(mediaDiv);
     article.appendChild(mediaNameAndLikes);
     mediaNameAndLikes.appendChild(h2);

@@ -1,3 +1,7 @@
+document.querySelector('.dropdown').addEventListener('click', e => {
+  e.currentTarget.classList.toggle('dropdown-open');
+})
+
 //Fonction qui permet de récupérer et affiche un photographe en fontion de son id 
 
 async function getPhotographerById(id) {
@@ -40,24 +44,53 @@ function displayMedias(medias) {
   const mediasSection = document.querySelector(".medias");
 
   medias.forEach((media) => {
-      const mediaDOM = mediaFactory(media);
-      mediasSection.appendChild(mediaDOM);
+    const mediaDOM = mediaFactory(media);
+    media.dom = mediaDOM;
+    mediasSection.appendChild(mediaDOM);
   });
 };
 
 // fonction qui incrémente le nombre de likes sur la photo
-// function heartCounter() {
-  
-//   let likes = document.querySelector('.fa-heart', '.fas').addEventListener('click', incrementCounter);
-//   let total_Likes = document.querySelector('.counter-label');
-//   function incrementCounter() {
-//       let totalLikes = 0;
-//       for (let i = 0; i < likes.length; i++) {
-//           totalLikes += parseint(likes[i].innerText);
-//       }
-//       total_Likes.innerText = totalLikes;
-//   }
-// };
+
+function counterLikes() {
+  document.querySelectorAll('.mediaArticle').forEach((mediaArticle) => {
+    const like = mediaArticle.querySelector('.media-like');
+    const likes = mediaArticle.querySelector('.media-likes');
+
+    like.addEventListener('click', () => {
+      likes.textContent = parseInt(likes.textContent) + 1;
+    })
+  })
+};
+
+
+function compareLikes(a, b) {
+  if (a.likes > b.likes)
+    return -1;
+  if (a.likes < b.likes)
+    return 1;
+  return 0;
+}
+
+function compareDate(a, b) {
+  if (a.date > b.date)
+    return -1;
+  if (a.date < b.date)
+    return 1;
+  return 0;
+}
+
+function compareTitle(a, b) {
+  if (a.title > b.title)
+    return -1;
+  if (a.title < b.title)
+    return 1;
+  return 0;
+}
+
+const clickOnLike = document.querySelectorAll('.dropdown');
+const clickOnDate = document.querySelectorAll('.dropdown-date');
+const clickOnTitle = document.querySelectorAll('.dropdown-title');
 
 (async () => {
   let params = new URLSearchParams(document.location.search);
@@ -65,29 +98,24 @@ function displayMedias(medias) {
   let id = parseInt(params.get("id"));
 
   let photographer = await getPhotographerById(id);
-  console.log(photographer);
+  // console.log(photographer);
+
   //ajout des données des photographes
 
   document.querySelector(".photographer_name").textContent = photographer.name;
   document.querySelector(".photographer_localisation").textContent = photographer.city + ", " + photographer.country;
   document.querySelector(".photographer_tagLine").textContent = photographer.tagline;
-  document.querySelector(".photographer_picture").setAttribute("src", "assets/photographers/" + photographer.portrait )
+  document.querySelector(".photographer_picture").setAttribute("src", "assets/photographers/" + photographer.portrait)
 
   let medias = await getMediasByPhotographer(photographer);
-  displayMedias(medias  );
-  
+  displayMedias(medias);
+  counterLikes();
+  clickOnLike.addEventListener('click', (medias.sort(compareLikes).forEach((media, index) => media.dom.style.order = index)));
+  clickOnDate.addEventListener('click', (medias.sort(compareDate).forEach((media, index) => media.dom.style.order = index)));
+  clickOnTitle.addEventListener('click', (medias.sort(compareTitle).forEach((media, index) => media.dom.style.order = index)));
+  // medias.sort(compareLikes).forEach((media, index) => media.dom.style.order = index);
+  // medias.sort(compareDate).forEach((media, index) => media.dom.style.order = index);
+  // medias.sort(compareTitle).forEach((media, index) => media.dom.style.order = index);
+
 })();
 
-
-var dropdown = document.querySelector(".dropdown");
-var btnDrop = document.querySelector(".bloc-top");
-var toggleIndex = 0;
-btnDrop.addEventListener("click", function () {
-  if (toggleIndex === 0) {
-    dropdown.style.height = "".concat(dropdown.scrollHeight, "px");
-    toggleIndex++;
-  } else {
-    dropdown.style.height = "".concat(btnDrop.scrollHeight, "px");
-    toggleIndex--;
-  }
-});
