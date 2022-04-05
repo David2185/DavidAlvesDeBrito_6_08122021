@@ -1,6 +1,62 @@
+//Mise en place du tri des médias ainsi que de l'affichage du menu dropdown
+
 document.querySelector('.dropdown').addEventListener('click', e => {
   e.currentTarget.classList.toggle('dropdown-open');
-})
+});
+
+function compareLikes(a, b) {
+  if (a.likes > b.likes)
+    return -1;
+  if (a.likes < b.likes)
+    return 1;
+  return 0;
+};
+
+function compareDates(a, b) {
+  if (a.date > b.date)
+    return -1;
+  if (a.date < b.date)
+    return 1;
+  return 0;
+};
+
+function compareTitles(a, b) {
+  if (a.title > b.title)
+    return -1;
+  if (a.title < b.title)
+    return 1;
+  return 0;
+};
+
+function sort() {
+  const item = document.querySelector('.dropdown-item.active');
+
+  let sortingFunction;
+
+  if (item.textContent === "Popularité") {
+    sortingFunction = compareLikes;
+  } else if (item.textContent === "Date") {
+    sortingFunction = compareDates;
+  } else {
+    sortingFunction = compareTitles;
+  }
+
+
+  medias.sort(sortingFunction).forEach(() => {
+    medias.sort(compareLikes).forEach((media, index) => media.dom.style.order = index);
+    medias.sort(compareDates).forEach((media, index) => media.dom.style.order = index);
+    medias.sort(compareTitles).forEach((media, index) => media.dom.style.order = index);
+  });
+}
+
+  document.querySelectorAll('.dropdown-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.dropdown-item.active').classList.remove('active');
+      item.classList.add('active');
+      document.querySelector('dropdown > span').textContent = item.textContent;
+      sort();
+    });
+  });
 
 //Fonction qui permet de récupérer et affiche un photographe en fontion de son id 
 
@@ -64,34 +120,6 @@ function counterLikes() {
 };
 
 
-function compareLikes(a, b) {
-  if (a.likes > b.likes)
-    return -1;
-  if (a.likes < b.likes)
-    return 1;
-  return 0;
-}
-
-function compareDate(a, b) {
-  if (a.date > b.date)
-    return -1;
-  if (a.date < b.date)
-    return 1;
-  return 0;
-}
-
-function compareTitle(a, b) {
-  if (a.title > b.title)
-    return -1;
-  if (a.title < b.title)
-    return 1;
-  return 0;
-}
-
-const clickOnLike = document.querySelectorAll('.dropdown');
-const clickOnDate = document.querySelectorAll('.dropdown-date');
-const clickOnTitle = document.querySelectorAll('.dropdown-title');
-
 (async () => {
   let params = new URLSearchParams(document.location.search);
 
@@ -110,12 +138,5 @@ const clickOnTitle = document.querySelectorAll('.dropdown-title');
   let medias = await getMediasByPhotographer(photographer);
   displayMedias(medias);
   counterLikes();
-  clickOnLike.addEventListener('click', (medias.sort(compareLikes).forEach((media, index) => media.dom.style.order = index)));
-  clickOnDate.addEventListener('click', (medias.sort(compareDate).forEach((media, index) => media.dom.style.order = index)));
-  clickOnTitle.addEventListener('click', (medias.sort(compareTitle).forEach((media, index) => media.dom.style.order = index)));
-  // medias.sort(compareLikes).forEach((media, index) => media.dom.style.order = index);
-  // medias.sort(compareDate).forEach((media, index) => media.dom.style.order = index);
-  // medias.sort(compareTitle).forEach((media, index) => media.dom.style.order = index);
-
+  sort();
 })();
-
