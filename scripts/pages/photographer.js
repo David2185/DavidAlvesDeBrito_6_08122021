@@ -28,7 +28,7 @@ function compareTitles(a, b) {
   return 0;
 };
 
-function sort() {
+function sort(medias) {
   const item = document.querySelector('.dropdown-item.active');
 
   let sortingFunction;
@@ -41,22 +41,10 @@ function sort() {
     sortingFunction = compareTitles;
   }
 
+  medias.sort(sortingFunction).forEach((media, index) => media.dom.style.order = index);
+};
 
-  medias.sort(sortingFunction).forEach(() => {
-    medias.sort(compareLikes).forEach((media, index) => media.dom.style.order = index);
-    medias.sort(compareDates).forEach((media, index) => media.dom.style.order = index);
-    medias.sort(compareTitles).forEach((media, index) => media.dom.style.order = index);
-  });
-}
 
-  document.querySelectorAll('.dropdown-item').forEach(item => {
-    item.addEventListener('click', () => {
-      document.querySelectorAll('.dropdown-item.active').classList.remove('active');
-      item.classList.add('active');
-      document.querySelector('dropdown > span').textContent = item.textContent;
-      sort();
-    });
-  });
 
 //Fonction qui permet de récupérer et affiche un photographe en fontion de son id 
 
@@ -68,7 +56,7 @@ async function getPhotographerById(id) {
       data.photographers.forEach((photographer) => {
         if (id == photographer.id) {
           result = photographer;
-          console.log(photographer);
+          // console.log(photographer);
         }
       });
       return result;
@@ -120,6 +108,7 @@ function counterLikes() {
 };
 
 
+
 (async () => {
   let params = new URLSearchParams(document.location.search);
 
@@ -136,7 +125,18 @@ function counterLikes() {
   document.querySelector(".photographer_picture").setAttribute("src", "assets/photographers/" + photographer.portrait)
 
   let medias = await getMediasByPhotographer(photographer);
+  document.querySelectorAll('.dropdown-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelector('.dropdown-item.active').classList.remove('active');
+      item.classList.add('active');
+      document.querySelector('.dropdown > span').textContent = item.textContent;
+      sort(medias);
+    });
+  });
   displayMedias(medias);
-  counterLikes();
-  sort();
-})();
+  sort(medias);
+  counterLikes(); 
+})(); 
+
+
+
