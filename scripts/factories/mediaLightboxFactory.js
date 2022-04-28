@@ -1,55 +1,24 @@
 function mediaLightboxFactory(media) {
-    console.log(media);
-    const lightboxDiv = document.createElement('div');
-    lightboxDiv.classList.add('lightbox-div');
-    const mediaLightboxDiv = document.createElement('div');
-    mediaLightboxDiv.classList.add('lightbox-media-div');
+    const article = document.createElement('article');
+    article.classList.add('media-lightbox');
+
     if (media.hasOwnProperty('video')) {
-            const video = document.createElement('video');
-            video.setAttribute("src", `assets/medias/${media.video}`);
-            mediaDiv.appendChild(video);
-           } else {
-            const pictures = `assets/medias/${media.image}`;
-            const img = document.createElement('img');
-            img.setAttribute("src", pictures);
-            mediaDiv.appendChild(img);
-        }
-    mediaLightboxDiv.appendChild(lightboxDiv);
+        const video = document.createElement('video');
+        video.setAttribute("src", `assets/medias/${media.video}`);
+        article.appendChild(video);
+    } else {
+        const pictures = `assets/medias/${media.image}`;
+        const img = document.createElement('img');
+        img.setAttribute("src", pictures);
+        article.appendChild(img);
 
-    return lightboxDiv;
-    // const article = document.createElement('article');
-    // article.classList.add('mediaArticle');
-    // const mediaDiv = document.createElement('div');
-    // mediaDiv.classList.add('mediaDiv');
-    // if (media.hasOwnProperty('video')) {
-    //     const video = document.createElement('video');
-    //     video.setAttribute("src", `assets/medias/${media.video}`);
-    //     mediaDiv.appendChild(video);
-    //    } else {
-    //     const pictures = `assets/medias/${media.image}`;
-    //     const img = document.createElement('img');
-    //     img.setAttribute("src", pictures);
-    //     mediaDiv.appendChild(img);
-    // }
-    // const mediaNameAndLikes = document.createElement('div');
-    // mediaNameAndLikes.classList.add('mediaNameAndLikes');
-    // const legendDiv = document.createElement('div');
-    // legendDiv.classList.add('legendDiv');
-    // const h2 = document.createElement('h2');
-    // h2.textContent = media.title;
-    // const likes = document.createElement('span');
-    // likes.classList.add('media-likes');
-    // likes.textContent = media.likes;
-    // const heart = document.createElement('i');
-    // heart.classList.add('fa-heart', 'fas', 'media-like');
-    // article.appendChild(mediaDiv);
-    // article.appendChild(mediaNameAndLikes);
-    // mediaNameAndLikes.appendChild(h2);
-    
-    // legendDiv.appendChild(likes);
-    // mediaNameAndLikes.appendChild(legendDiv);
-    // legendDiv.appendChild(heart);
+    }
+    const h2 = document.createElement('h2');
+    h2.classList.add('modal-style');
+    h2.textContent = media.title;
+    article.appendChild(h2);
 
-    // return article;
+    return article;
 }
 
+// j'ai toujours du mal à comprendre comment cela va s'insérer dans mon DOM (dans quel ordre ect...)

@@ -1,4 +1,4 @@
-    fetch("data/photographers.json")
+    fetch("data/photographers.json") // utilisation du fetch? à quoi ça sert? quand? 
     .then(result => result.json()) 
     .then(data => console.log(data));
 

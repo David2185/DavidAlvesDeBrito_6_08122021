@@ -1,7 +1,7 @@
 //Mise en place du tri des médias ainsi que de l'affichage du menu dropdown
 
 document.querySelector('.dropdown').addEventListener('click', e => {
-  e.currentTarget.classList.toggle('dropdown-open');
+  e.currentTarget.classList.toggle('dropdown-open');  // j'ai du mal à comprendre l'utilisation du current target 
 });
 
 function compareLikes(a, b) {
@@ -31,7 +31,7 @@ function compareTitles(a, b) {
 function sort(medias) {
   const item = document.querySelector('.dropdown-item.active');
 
-  let sortingFunction;
+  let sortingFunction; // commment avoir le reflèxe d'utiliser une variable vide et définir son contenu plus tard 
 
   if (item.textContent === "Popularité") {
     sortingFunction = compareLikes;
@@ -41,7 +41,11 @@ function sort(medias) {
     sortingFunction = compareTitles;
   }
 
-  medias.sort(sortingFunction).forEach((media, index) => media.dom.style.order = index);
+  medias.sort(sortingFunction).forEach((media, index) => {
+    media.dom.style.order = index;
+    media.lightbox.style.order = index; // comment savoir si je dois définir le css dans le js ou dans le fichier css 
+  });
+
 };
 
 
@@ -49,7 +53,7 @@ function sort(medias) {
 //Fonction qui permet de récupérer et affiche un photographe en fontion de son id 
 
 async function getPhotographerById(id) {
-  const photographer = await fetch("data/photographers.json")
+  const photographer = await fetch("data/photographers.json")  // comment savoir où utiliser une fonction async 
     .then((result) => result.json())
     .then((data) => {
       let result;
@@ -107,7 +111,29 @@ function counterLikes() {
   })
 };
 
+  //fonction qui va permetrre l'affichage des medias dans la lightbox
 
+  function displayLightbox (medias){
+    const lightboxMediasSection = document.querySelector('.lightbox-container');
+  
+    medias.forEach((media) => {
+      const lightBoxDom = mediaLightboxFactory(media);
+      media.lightbox = lightBoxDom;
+      lightboxMediasSection.appendChild(lightBoxDom);
+  
+    })
+    medias[0].lightbox.classList.add('active');  // je n'aurai jamais compris qu'il fallait ajouter cette ligne ici pour ajouter la classe active je l'aurai mise dans ma medialightboxfactory
+  };
+
+  const mediaArticle = document.querySelector('.mediaArticle');
+
+  // function openLightbox() {
+  //   document.getElementById('lightbox-container').style.display = 'block';
+  // }
+  
+  // function closeLightbox() {
+  //   document.getElementById('lightbox-container').style.display = 'none';
+  // };
 
 (async () => {
   let params = new URLSearchParams(document.location.search);
@@ -115,7 +141,6 @@ function counterLikes() {
   let id = parseInt(params.get("id"));
 
   let photographer = await getPhotographerById(id);
-  // console.log(photographer);
 
   //ajout des données des photographes
 
@@ -133,10 +158,16 @@ function counterLikes() {
       sort(medias);
     });
   });
-  displayMedias(medias);
+
+  
+
+  displayMedias(medias);  // comprendre dans quel ordre appeler les fonctions 
+  displayLightbox(medias); 
   sort(medias);
   counterLikes(); 
+  
 })(); 
+
 
 
 

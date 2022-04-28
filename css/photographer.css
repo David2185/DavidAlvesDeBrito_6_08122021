@@ -233,7 +233,8 @@ video {
     padding: .5rem 1rem;
     position: relative;
     color: #FAFAFA;
-    justify-content:flex-start;
+
+    width: 10rem;
 }
 
 .dropdown-open {
@@ -294,13 +295,6 @@ video {
     display: block;
 }
 
-::after, ::before {
-    display: flex;
-    font-size: 1rem;
-    width: 2em;
-    height: 1.5em;
-    margin-left:.2rem;
-}
 
 .dropdown {
     cursor: pointer;

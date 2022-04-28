@@ -17,7 +17,6 @@ function photographerFactory(data) {
         const spanPrice = document.createElement( 'span' );
         spanPrice.textContent = data.price + '€/jour';
         const link = document.createElement('a');
-        console.log(data);
         link.setAttribute('href', 'photographer.html?id='+data.id);
         link.classList.add('linksPhotographers'); 
         article.appendChild(img);

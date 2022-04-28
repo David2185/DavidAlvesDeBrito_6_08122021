@@ -38,3 +38,4 @@ function mediaFactory(media) {
     return article;
 }
 
+//fonction en partie implémentée par oc mais je n'aurai jamais su qu'il fallait construire ce factory pour construire mon DOM
