@@ -8,8 +8,13 @@
     flex-wrap: wrap;
     align-items: stretch;
     cursor: pointer;
+   
 }
 
+.lightbox-container article {
+    height: 100%;
+}
+   
 .media-lightbox {
     width: 80%;
     height: 90%;
@@ -28,14 +33,14 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
-
+    height: 100%;
 }
 
 .media-lightbox img {
-    width: 100%;
-    height: 100%;
     object-fit: cover;
     display: flex;
+    flex-grow: 1;
+    object-fit: contain;
 }
 
 .lightbox {
@@ -58,8 +63,9 @@
     padding: 10px;
     cursor: pointer;
     z-index: 2;
-    top: 4rem;
-    right: 7rem;
+    top: 2rem;
+    right: 12rem;
+    font-size: 3rem;
 }
 
 .fa-chevron-left {
@@ -67,6 +73,8 @@
     z-index: 2;
     position: relative;
     left: 6rem;
+    font-size: 3rem;
+    bottom: 22rem;
 }
 
 .fa-chevron-right {
@@ -74,4 +82,12 @@
     z-index: 2;
     position: relative;
     left: 85rem;
+    font-size: 3rem;
+    bottom: 22rem;
+}
+
+
+.lightboxPictures {
+    width: 32rem;
+    height: 36rem;
 }

@@ -5,10 +5,12 @@ function mediaLightboxFactory(media) {
     if (media.hasOwnProperty('video')) {
         const video = document.createElement('video');
         video.setAttribute("src", `assets/medias/${media.video}`);
+        video.classList.add('lightboxPictures');
         article.appendChild(video);
     } else {
         const pictures = `assets/medias/${media.image}`;
         const img = document.createElement('img');
+        img.classList.add('lightboxPictures');
         img.setAttribute("src", pictures);
         article.appendChild(img);
 

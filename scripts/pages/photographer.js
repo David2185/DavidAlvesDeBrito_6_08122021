@@ -1,7 +1,7 @@
 //Mise en place du tri des médias ainsi que de l'affichage du menu dropdown
 
 document.querySelector('.dropdown').addEventListener('click', e => {
-  e.currentTarget.classList.toggle('dropdown-open');  // j'ai du mal à comprendre l'utilisation du current target 
+  e.currentTarget.classList.toggle('dropdown-open'); // j'ai du mal à comprendre l'utilisation du current target 
 });
 
 function compareLikes(a, b) {
@@ -53,7 +53,7 @@ function sort(medias) {
 //Fonction qui permet de récupérer et affiche un photographe en fontion de son id 
 
 async function getPhotographerById(id) {
-  const photographer = await fetch("data/photographers.json")  // comment savoir où utiliser une fonction async 
+  const photographer = await fetch("data/photographers.json") // comment savoir où utiliser une fonction async 
     .then((result) => result.json())
     .then((data) => {
       let result;
@@ -111,29 +111,29 @@ function counterLikes() {
   })
 };
 
-  //fonction qui va permetrre l'affichage des medias dans la lightbox
+//fonction qui va permetrre l'affichage des medias dans la lightbox
 
-  function displayLightbox (medias){
-    const lightboxMediasSection = document.querySelector('.lightbox-container');
-  
-    medias.forEach((media) => {
-      const lightBoxDom = mediaLightboxFactory(media);
-      media.lightbox = lightBoxDom;
-      lightboxMediasSection.appendChild(lightBoxDom);
-  
-    })
-    medias[0].lightbox.classList.add('active');  // je n'aurai jamais compris qu'il fallait ajouter cette ligne ici pour ajouter la classe active je l'aurai mise dans ma medialightboxfactory
-  };
+function displayLightbox(medias) {
+  const lightboxMediasSection = document.querySelector('.lightbox-container');
 
-  const mediaArticle = document.querySelector('.mediaArticle');
+  medias.forEach((media) => {
+    const lightBoxDom = mediaLightboxFactory(media);
+    media.lightbox = lightBoxDom;
+    lightboxMediasSection.appendChild(lightBoxDom);
 
-  // function openLightbox() {
-  //   document.getElementById('lightbox-container').style.display = 'block';
-  // }
-  
-  // function closeLightbox() {
-  //   document.getElementById('lightbox-container').style.display = 'none';
-  // };
+  })
+  medias[0].lightbox.classList.add('active'); // je n'aurai jamais compris qu'il fallait ajouter cette ligne ici pour ajouter la classe active je l'aurai mise dans ma medialightboxfactory
+};
+
+
+function lightboxManagement() {
+
+}
+
+//   function closeModalLightbox() {
+//     const modal = document.getElementsByClassName("fa-xmark");
+//     modal.style.display = "none";
+// }
 
 (async () => {
   let params = new URLSearchParams(document.location.search);
@@ -159,15 +159,29 @@ function counterLikes() {
     });
   });
 
-  
 
-  displayMedias(medias);  // comprendre dans quel ordre appeler les fonctions 
-  displayLightbox(medias); 
+  
+const articles = document.querySelectorAll('article');
+
+document.querySelector("#right").addEventListener('click', (e) => {
+  e.preventDefault();
+
+  const current = document.querySelector('article.active');
+
+  let next = current.nextElementSibling;
+
+  if (next === null) {
+    next = articles[0];
+  }
+  current.classList.remove('active');
+
+  next.classList.add('active');
+});
+
+
+  displayMedias(medias); // comprendre dans quel ordre appeler les fonctions 
+  displayLightbox(medias);
   sort(medias);
-  counterLikes(); 
-  
-})(); 
+  counterLikes();
 
-
-
-
+})();
